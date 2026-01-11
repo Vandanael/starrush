@@ -1,4 +1,4 @@
-# ☀️ STAR RUSH
+# STAR RUSH
 
 **Capture the Sun before the AI does.**
 
@@ -6,13 +6,13 @@ A minimalist real-time strategy game. The Sun is dying, and you have 3 minutes t
 
 ---
 
-## 🎯 Elevator Pitch
+## Pitch
 
 The Sun is dying. You have 3 minutes to capture it by building 8 sphere segments. The AI is racing against you. First to 8 segments wins. Click planets to attack, manage your energy, and capture the Sun before time runs out.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -30,7 +30,7 @@ The game will be available at `http://localhost:5173` (or the port shown in the 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Fast build tool and dev server
@@ -42,7 +42,7 @@ The game will be available at `http://localhost:5173` (or the port shown in the 
 
 ---
 
-## 🎮 Game Modes
+## Game Modes
 
 - **Classic** - 2 minutes, 5 planets to unlock Sun
 - **Quick Match** - 1 minute, 4 planets to unlock Sun
