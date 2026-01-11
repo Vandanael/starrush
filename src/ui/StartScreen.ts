@@ -160,10 +160,11 @@ export class StartScreen {
     
     // Responsive scale: smaller on mobile to fit viewport
     const mobileScale = isMobile ? 0.5 : 0.7; // Smaller to leave room for buttons
-    // Position between subtitle and buttons
+    // Position between subtitle and buttons avec espacement amélioré
     const subtitleBottom = this.subtitle ? this.subtitle.y + (this.subtitle.height / 2) : app.screen.height * 0.3;
-    const buttonsTop = app.screen.height - 120; // Approximate buttons position
-    const heroY = subtitleBottom + ((buttonsTop - subtitleBottom) / 2); // Center between subtitle and buttons
+    const spacingAfterSubtitle = isMobile ? 30 : 40; // Espacement après subtitle
+    const buttonsTop = app.screen.height - (isMobile ? 140 : 130); // Approximate buttons position avec espacement
+    const heroY = subtitleBottom + spacingAfterSubtitle + ((buttonsTop - (subtitleBottom + spacingAfterSubtitle)) / 2); // Center avec espacement amélioré
     
     this.sunContainer = new PIXI.Container();
     this.sunContainer.x = centerX;
@@ -245,12 +246,16 @@ export class StartScreen {
   private createTitle(app: PIXI.Application) {
     const centerX = app.screen.width / 2;
     const isMobile = app.screen.width < 480;
-    // Position plus proche du bord sur mobile pour effet "bord à bord"
-    const titleY = isMobile ? app.screen.height * 0.08 : app.screen.height * 0.15; // Top area, closer to edge on mobile
+    // Position avec espacement depuis le haut
+    const titleY = isMobile ? app.screen.height * 0.10 : app.screen.height * 0.15; // Top area, avec espacement
     
     // Title style - responsive size for mobile
     const baseFontSize = isMobile ? 48 : LUMINOUS_STYLE.RENDERING.UI_FONT_SIZE_LARGE * 2.5; // 48px mobile, 80px desktop
     const letterSpacing = isMobile ? 4 : 8; // Réduit sur mobile pour éviter débordement
+    
+    // Padding horizontal pour espacement de chaque côté
+    const horizontalPadding = isMobile ? 20 : 40;
+    const maxWidth = app.screen.width - (horizontalPadding * 2);
     
     const titleStyle = new PIXI.TextStyle({
       fontFamily: 'Arial, sans-serif',
@@ -258,6 +263,8 @@ export class StartScreen {
       fill: LUMINOUS_STYLE.COLORS.UI_TEXT,
       fontWeight: 'bold',
       letterSpacing: letterSpacing,
+      wordWrap: true,
+      wordWrapWidth: maxWidth,
     });
     
     this.title = new PIXI.Text('STAR RUSH', titleStyle);
@@ -282,9 +289,10 @@ export class StartScreen {
    */
   private createSubtitle(app: PIXI.Application) {
     const centerX = app.screen.width / 2;
-    // Position directly below title with minimal spacing
+    const isMobile = app.screen.width < 480;
+    // Position avec espacement amélioré
     const titleBottom = this.title.y + (this.title.height / 2);
-    const subtitleY = titleBottom + 15; // Minimal spacing (15px) - reduced from 20px
+    const subtitleY = titleBottom + (isMobile ? 20 : 25); // Espacement amélioré
     
     const subtitleStyle = new PIXI.TextStyle({
       fontFamily: 'Arial, sans-serif',
@@ -316,8 +324,8 @@ export class StartScreen {
     
     // Calculate mode buttons row position (above Start button)
     const startButtonHeight = Math.max(48, isMobile ? 52 : 50);
-    const verticalGap = isMobile ? 20 : 25; // Vertical spacing between modes and Start
-    const startButtonY = app.screen.height - 60 - safeAreaBottom; // Start button at bottom
+    const verticalGap = isMobile ? 30 : 35; // Vertical spacing amélioré entre modes and Start
+    const startButtonY = app.screen.height - (isMobile ? 80 : 70) - safeAreaBottom; // Start button at bottom avec plus d'espace
     const modeY = startButtonY - startButtonHeight - verticalGap; // Mode buttons above Start
     
     // Create mode buttons row (centered horizontally)
@@ -425,7 +433,7 @@ export class StartScreen {
         const descStyle = new PIXI.TextStyle({
           fontFamily: 'Arial, sans-serif',
           fontSize: LUMINOUS_STYLE.RENDERING.UI_FONT_SIZE_NORMAL - 6,
-          fill: LUMINOUS_STYLE.COLORS.UI_TEXT_SECONDARY,
+          fill: 0x666666, // Couleur foncée pour les temps
           align: 'center',
         });
         const descText = new PIXI.Text(`${modeConfig.duration}s`, descStyle);
@@ -553,7 +561,7 @@ export class StartScreen {
     const textStyle = new PIXI.TextStyle({
       fontFamily: 'Arial, sans-serif',
       fontSize: LUMINOUS_STYLE.RENDERING.UI_FONT_SIZE_NORMAL - 4,
-      fill: LUMINOUS_STYLE.COLORS.UI_TEXT,
+      fill: 0x666666, // Couleur foncée pour les temps Time Attack
       fontWeight: 'bold',
       align: 'center',
     });
