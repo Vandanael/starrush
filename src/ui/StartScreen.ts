@@ -245,15 +245,19 @@ export class StartScreen {
   private createTitle(app: PIXI.Application) {
     const centerX = app.screen.width / 2;
     const isMobile = app.screen.width < 480;
-    const titleY = isMobile ? app.screen.height * 0.12 : app.screen.height * 0.15; // Top area, slightly higher
+    // Position plus proche du bord sur mobile pour effet "bord à bord"
+    const titleY = isMobile ? app.screen.height * 0.08 : app.screen.height * 0.15; // Top area, closer to edge on mobile
     
-    // Title style - big, bold, uppercase
+    // Title style - responsive size for mobile
+    const baseFontSize = isMobile ? 48 : LUMINOUS_STYLE.RENDERING.UI_FONT_SIZE_LARGE * 2.5; // 48px mobile, 80px desktop
+    const letterSpacing = isMobile ? 4 : 8; // Réduit sur mobile pour éviter débordement
+    
     const titleStyle = new PIXI.TextStyle({
       fontFamily: 'Arial, sans-serif',
-      fontSize: LUMINOUS_STYLE.RENDERING.UI_FONT_SIZE_LARGE * 2.5, // 80px
+      fontSize: baseFontSize,
       fill: LUMINOUS_STYLE.COLORS.UI_TEXT,
       fontWeight: 'bold',
-      letterSpacing: 8,
+      letterSpacing: letterSpacing,
     });
     
     this.title = new PIXI.Text('STAR RUSH', titleStyle);
